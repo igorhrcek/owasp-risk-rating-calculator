@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OWASP RISK CALCULATOR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="source.js"></script>
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    
+        .row > [class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .card {
+            flex: 1 1 auto;
+            min-height: 300px;
+            height: auto;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body select {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-full p-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">OWASP Risk Rating Calculator</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="calculator-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="mb-3">Likelihood Factors</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="mb-3">Threat Agent Factors</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-3">Vulnerability Factors</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Threat Agent/Skill level: How technically skilled is this group of threat agents? Security penetration skills (1), network and programming skills (3), advanced computer user (5), some technical skills (6), no technical skills (9)-->
+                                <div class="card-header">
+                                    Threat Agent/Skill level
+                                </div>
+                                    <div class="card-body">
+                                        <p>
+                                            How technically skilled is this group of threat agents? Security penetration skills (1), network and programming skills (3), advanced computer user (5), some technical skills (6), no technical skills (9)
+                                        </p>
+                                        <select class="form-select" id="skill-level" data-bs-toggle="popover" data-bs-trigger="hover"
+                                        tabindex="0" data-bs-placement="top"
+                                        data-bs-content="How technically skilled is this group of threat agents?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Security penetration skills</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - Network and programming skills</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5 - Advanced computer user</option>
+                                        <option class="text-6" value="6">6 - Some technical skills</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - No technical skills</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Vulnerability/Ease of discovery: How easy is it for this group of threat agents to discover this vulnerability? Practically impossible (1), difficult (3), easy (7), automated tools available (9)-->
+                                <div class="card-header">
+                                    Vulnerability/Ease of Discovery
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How easy is it for this group of threat agents to discover this vulnerability? Practically impossible (1), difficult (3), easy (7), automated tools available (9)
+                                    </p>
+                                    <select class="form-select" id="ease-of-discovery" data-bs-toggle="popover" data-bs-placement="top"
+                                        data-bs-content="How easy is it for this group of threat agents to discover this vulnerability?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Practically impossible</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - Difficult</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Easy</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Automated tools available</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Threat Agent/Motive: How motivated is this group of threat agents to find and exploit this vulnerability? Low or no reward (1), possible reward (4), high reward (9)-->
+                                <div class="card-header">
+                                    Threat Agent/Motive
+                                </div>
+                                    <div class="card-body">
+                                        <p>
+                                            How motivated is this group of threat agents to find and exploit this vulnerability? Low or no reward (1), possible reward (4), high reward (9)
+                                        </p>
+                                        <select class="form-select" id="motive" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top"
+                                        data-bs-content="How technically skilled is this group of threat agents?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Low or no reward</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4 - Possible reward</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - High reward</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Vulnerability/Ease of exploit: How easy is it for this group of threat agents to actually exploit this vulnerability? Theoretical (1), difficult (3), easy (5), automated tools available (9)-->
+                                <div class="card-header">
+                                    Vulnerability/Ease of Exploit
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How easy is it for this group of threat agents to actually exploit this vulnerability? Theoretical (1), difficult (3), easy (5), automated tools available (9)
+                                    </p>
+                                    <select class="form-select" id="ease-of-exploit" data-bs-toggle="popover" data-bs-placement="top"
+                                        data-bs-content="How easy is it for this group of threat agents to actually exploit this vulnerability?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Theoretical</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - Difficult</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5 - Easy</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Automated tools available</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Threat Agent/Opportunity: What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability? Full access or expensive resources required (0), special access or resources required (4), some access or resources required (7), no access or resources required (9)-->
+                                <div class="card-header">
+                                    Threat Agent/Opportunity
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability? Full access or expensive resources required (0), special access or resources required (4), some access or resources required (7), no access or resources required (9)
+                                    </p>
+                                    <select class="form-select" id="opportunity" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0"
+                                        data-bs-placement="top"
+                                        data-bs-content="What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability?">
+                                        <option class="text-0" value="0">0 - Full access or expensive resources required</option>
+                                        <option class="text-1" value="1">1</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4 - Special access or resources required</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Some access or resources required</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - No access or resources required</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Vulnerability/Awareness: How well known is this vulnerability to this group of threat agents? Unknown (1), hidden (4), obvious (6), public knowledge (9)-->
+                                <div class="card-header">
+                                    Vulnerability/Awareness
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How well known is this vulnerability to this group of threat agents? Unknown (1), hidden (4), obvious (6), public knowledge (9)
+                                    </p>
+                                    <select class="form-select" id="awareness" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0"
+                                        data-bs-placement="top"
+                                        data-bs-content="How well known is this vulnerability to this group of threat agents?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Unknown</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4 - Hidden</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6 - Obvious</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Public knowledge</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Threat Agent/Size: How large is this group of threat agents? Developers (2), system administrators (2), intranet users (4), partners (5), authenticated users (6), anonymous Internet users (9)-->
+                                <div class="card-header">
+                                    Threat Agent/Size
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How large is this group of threat agents? Developers (2), system administrators (2), intranet users (4), partners (5), authenticated users (6), anonymous Internet users (9)
+                                    </p>
+                                    <select class="form-select" id="size" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0"
+                                        data-bs-placement="top" data-bs-content="How large is this group of threat agents?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1</option>
+                                        <option class="text-2" value="2">2 - Developers or system administrators</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4 - Intranet users</option>
+                                        <option class="text-5" value="5">5 - Partners</option>
+                                        <option class="text-6" value="6">6 - Authenticated users</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Anonymous Internet users</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Vulnerability/Intrusion detection: How likely is an exploit to be detected? Active detection in application (1), logged and reviewed (3), logged without review (8), not logged (9)-->
+                                <div class="card-header">
+                                    Vulnerability/Intrusion Detection
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How likely is an exploit to be detected? Active detection in application (1), logged and reviewed (3), logged without review (8), not logged (9)
+                                    </p>
+                                    <select class="form-select" id="intrusion-detection" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" 
+                                        data-bs-placement="top"
+                                        data-bs-content="How likely is an exploit to be detected?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Active detection in application</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - Logged and reviewed</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8 - Logged without review</option>
+                                        <option class="text-9" value="9">9 - Not logged</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert" role="alert">
+                                Threat Agent Factor: <span id="TAF"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert" role="alert">
+                                Vulnerability Factor: <span id="VF"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert" role="alert">
+                                Likelihoood Factor: <span id="LF"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h2 class="mb-3">Impact Factors</h2>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="mb-3">Business Impact Factors</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="mb-3">Technical Impact Factors</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Business Impact/Financial damage: How much financial damage will result from an exploit? Less than the cost to fix the vulnerability (1), minor effect on annual profit (3), significant effect on annual profit (7), bankruptcy (9)-->
+                                <div class="card-header">
+                                    Business Impact/Financial Damage
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How much financial damage will result from an exploit? Less than the cost to fix the vulnerability (1), minor effect on annual profit (3), significant effect on annual profit (7), bankruptcy (9)
+                                    </p>
+                                    <select class="form-select" id="financial-damage" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top" data-bs-content="How much financial damage will result from an exploit?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Less than the cost to fix the vulnerability</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - Minor effect on annual profit</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Significant effect on annual profit</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Bankruptcy</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Technical Impact/Loss of confidentiality: How much data could be disclosed and how sensitive is it? Minimal non-sensitive data disclosed (2), minimal critical data disclosed (6), extensive non-sensitive data disclosed (6), extensive critical data disclosed (7), all data disclosed (9)-->
+                                <div class="card-header">
+                                    Technical Impact/Loss of Confidentiality
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How much data could be disclosed and how sensitive is it? Minimal non-sensitive data disclosed (2), minimal critical data disclosed (6), extensive non-sensitive data disclosed (6), extensive critical data disclosed (7), all data disclosed (9)
+                                    </p>
+                                    <select class="form-select" id="loss-of-confidentiality" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top" data-bs-content="How much data could be disclosed and how sensitive is it?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1</option>
+                                        <option class="text-2" value="2">2 - Minimal non-sensitive data disclosed</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6 - Minimal critical data or extensive non-sensitive data disclosed</option>
+                                        <option class="text-7" value="7">7 - Extensive critical data disclosed</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - All data disclosed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Business Impact/Reputation damage: Would an exploit result in reputation damage that would harm the business? Minimal damage (1), Loss of major accounts (4), loss of goodwill (5), brand damage (9)-->
+                                <div class="card-header">
+                                    Business Impact/Reputation Damage
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Would an exploit result in reputation damage that would harm the business? Minimal damage (1), Loss of major accounts (4), loss of goodwill (5), brand damage (9)
+                                    </p>
+                                    <select class="form-select" id="reputation-damage" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top" data-bs-content="Would an exploit result in reputation damage that would harm the business?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Minimal damage</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4 - Loss of major accounts</option>
+                                        <option class="text-5" value="5">5 - Loss of goodwill</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Brand damage</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Technical Impact/Loss of integrity: How much data could be corrupted and how damaged is it? Minimal slightly corrupt data (1), minimal seriously corrupt data (3), extensive slightly corrupt data (5), extensive seriously corrupt data (7), all data totally corrupt (9)-->
+                                <div class="card-header">
+                                    Technical Impact/Loss of Integrity
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How much data could be corrupted and how damaged is it? Minimal slightly corrupt data (1), minimal seriously corrupt data (3), extensive slightly corrupt data (5), extensive seriously corrupt data (7), all data totally corrupt (9)
+                                    </p>
+                                    <select class="form-select" id="loss-of-integrity" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top" data-bs-content="How much data could be corrupted and how damaged is it?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Minimal slightly corrupt data</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - Minimal seriously corrupt data</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5 - Extensive slightly corrupt data</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Extensive seriously corrupt data</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - All data totally corrupt</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Business Impact/Non-compliance: How much exposure does non-compliance introduce? Minor violation (2), clear violation (5), high profile violation (7)-->
+                                <div class="card-header">
+                                    Business Impact/Non-compliance
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How much exposure does non-compliance introduce? Minor violation (2), clear violation (5), high profile violation (7)
+                                    </p>
+                                    <select class="form-select" id="non-compliance" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top" data-bs-content="How much exposure does non-compliance introduce?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1</option>
+                                        <option class="text-2" value="2">2 - Minor violation</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5 - Clear violation</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - High profile violation</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Technical Impact/Loss of availability: How much service could be lost and how vital is it? Minimal secondary services interrupted (1), minimal primary services interrupted (5), extensive secondary services interrupted (5), extensive primary services interrupted (7), all services completely lost (9)-->
+                                <div class="card-header">
+                                    Technical Impact/Loss of Availability
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How much service could be lost and how vital is it? Minimal secondary services interrupted (1), minimal primary services interrupted (5), extensive secondary services interrupted (5), extensive primary services interrupted (7), all services completely lost (9)
+                                    </p>
+                                    <select class="form-select" id="loss-of-availability" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top" data-bs-content="How much service could be lost and how vital is it?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Minimal secondary services interrupted</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5 - Minimal primary or extensive secondary services interrupted</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Extensive primary services interrupted</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - All services completely lost</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Business Impact/Privacy violation: How much personally identifiable information could be disclosed? One individual (3), hundreds of people (5), thousands of people (7), millions of people (9)-->
+                                <div class="card-header">
+                                    Business Impact/Privacy Violation
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        How much personally identifiable information could be disclosed? One individual (3), hundreds of people (5), thousands of people (7), millions of people (9)
+                                    </p>
+                                    <select class="form-select" id="privacy-violation" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" data-bs-placement="top"
+                                        data-bs-content="How much personally identifiable information could be disclosed?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3 - One individual</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5 - Hundreds of people</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Thousands of people</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Millions of people</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--Technical Impact/Loss of accountability: Are the threat agents' actions traceable to an individual? Fully traceable (1), possibly traceable (7), completely anonymous (9)-->
+                                <div class="card-header">
+                                    Technical Impact/Loss of Accountability
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        Are the threat agents' actions traceable to an individual? Fully traceable (1), possibly traceable (7), completely anonymous (9)
+                                    </p>
+                                    <select class="form-select" id="loss-of-accountability" data-bs-toggle="popover" data-bs-trigger="hover" tabindex="0" 
+                                        data-bs-placement="top"
+                                        data-bs-content="Are the threat agents' actions traceable to an individual?">
+                                        <option class="text-0" value="0">0 - Not Available</option>
+                                        <option class="text-1" value="1">1 - Fully traceable</option>
+                                        <option class="text-2" value="2">2</option>
+                                        <option class="text-3" value="3">3</option>
+                                        <option class="text-4" value="4">4</option>
+                                        <option class="text-5" value="5">5</option>
+                                        <option class="text-6" value="6">6</option>
+                                        <option class="text-7" value="7">7 - Possibly traceable</option>
+                                        <option class="text-8" value="8">8</option>
+                                        <option class="text-9" value="9">9 - Completely anonymous</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert" role="alert">
+                                Business Impact Factor: <span id="BIF"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert" role="alert">
+                                Technical Impact Factor: <span id="TIF"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert" role="alert">
+                                Impact Factor: <span id="IF"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert" role="alert">
+                        Overall Risk Severity: <span id="R"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert m-3" role="alert">
+                        Score Vector: <a id="score" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert m-3" role="alert">
+                        Shortened Score Vector: <a id="scorev" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
